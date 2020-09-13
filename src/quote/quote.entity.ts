@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeor
 
 @Entity('quote')
 export class QuoteEntity {
-    @PrimaryGeneratedColumn() id: string;
+    @PrimaryGeneratedColumn('uuid') id: string;
 
     @CreateDateColumn() created: Date;
 

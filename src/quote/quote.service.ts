@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -21,7 +21,11 @@ export class QuoteService {
     }
 
     async read(id: string) {
-        return await this._quoteRepository.findOne({ where: { id: id } });
+        const quote = await this._quoteRepository.findOne({ where: { id: id } });
+        if(!quote) {
+            throw new HttpException('Not found', HttpStatus.NOT_FOUND);
+        }
+        return quote;
     }
 
     async update(id: string, data: Partial<QuoteDTO>) {
