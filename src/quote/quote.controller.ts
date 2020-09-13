@@ -4,7 +4,7 @@ import { QuoteService } from './quote.service';
 import { QuoteDTO } from './quote.dto';
 import { ValidationPipe } from 'src/shared/validation.pipe';
 
-@Controller('quote')
+@Controller('api/quotes')
 export class QuoteController {
     private logger = new Logger('QuoteController');
     constructor(private _quoteService: QuoteService) { }
