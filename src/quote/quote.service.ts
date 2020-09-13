@@ -21,20 +21,29 @@ export class QuoteService {
     }
 
     async read(id: string) {
-        const quote = await this._quoteRepository.findOne({ where: { id: id } });
-        if(!quote) {
+        const quote = await this._quoteRepository.findOne({ where: { id } });
+        if (!quote) {
             throw new HttpException('Not found', HttpStatus.NOT_FOUND);
         }
         return quote;
     }
 
     async update(id: string, data: Partial<QuoteDTO>) {
+        let quote = await this._quoteRepository.findOne({ where: { id } });
+        if (!quote) {
+            throw new HttpException('Not found', HttpStatus.NOT_FOUND);
+        }
         await this._quoteRepository.update({ id }, data);
-        return this._quoteRepository.findOne({ id });
+        quote = await this._quoteRepository.findOne({ where: { id } });
+        return quote;
     }
 
     async destroy(id: string) {
+        const quote = await this._quoteRepository.findOne({ where: { id } });
+        if (!quote) {
+            throw new HttpException('Not found', HttpStatus.NOT_FOUND);
+        }
         await this._quoteRepository.delete({ id });
-        return { deleted: true };
+        return quote;
     }
 }
