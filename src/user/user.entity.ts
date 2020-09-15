@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, CreateDateColumn, Column, BeforeInsert } from "typeorm";
 import * as bcrypt from "bcryptjs";
 import * as jwt from 'jsonwebtoken';
+
 import { UserRO } from "./user.dto";
 
 @Entity('user')
