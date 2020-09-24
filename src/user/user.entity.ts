@@ -1,8 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, CreateDateColumn, Column, BeforeInsert } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, CreateDateColumn, Column, BeforeInsert, OneToMany } from "typeorm";
 import * as bcrypt from "bcryptjs";
 import * as jwt from 'jsonwebtoken';
 
 import { UserRO } from "./user.dto";
+import { QuoteEntity } from "src/quote/quote.entity";
 
 @Entity('user')
 export class UserEntity {
@@ -20,6 +21,10 @@ export class UserEntity {
 
     @Column('text')
     password: string;
+
+    @OneToMany(type => QuoteEntity, quote => quote.author)
+    quotes: QuoteEntity[];
+
 
     @BeforeInsert()
     async hashPassword() {
